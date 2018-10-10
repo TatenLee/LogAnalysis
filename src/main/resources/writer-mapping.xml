@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>writer_new_user</name>
+        <value>com.bigdata.analysis.mr.nu.NewUserWriter</value>
+    </property>
+
+    <property>
+        <name>writer_browser_new_user</name>
+        <value>com.bigdata.analysis.mr.nu.NewBrowserUserWriter</value>
+    </property>
+
+    <property>
+        <name>writer_active_user</name>
+        <value>com.bigdata.analysis.mr.au.ActiveUserWriter</value>
+    </property>
+
+    <property>
+        <name>writer_browser_active_user</name>
+        <value>com.bigdata.analysis.mr.au.ActiveUserWriter</value>
+    </property>
+
+    <property>
+        <name>writer_hourly_active_user</name>
+        <value>com.bigdata.analysis.mr.au.ActiveUserWriter</value>
+    </property>
+</configuration>

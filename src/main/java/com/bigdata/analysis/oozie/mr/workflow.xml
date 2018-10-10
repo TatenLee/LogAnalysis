@@ -1,0 +1,96 @@
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="lda-mr">
+    <start to="etl_tohbase"/>
+    <action name="etl_tobhase">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <main-class>com.bigdata.etl.mr.tohbase.LogToHbaseRunner</main-class>
+            <arg>-d</arg>
+            <arg>${run_date}</arg>
+        </java>
+        <ok to="nu_mr"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="nu_mr">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <main-class>com.bigdata.analysis.mr.nu.NewUserRunner</main-class>
+            <arg>-d</arg>
+            <arg>${run_date}</arg>
+        </java>
+        <ok to="end"/>
+        <error to="fail"/>
+    </action>
+
+
+    <!--<action name="au_mr">-->
+        <!--<java>-->
+            <!--<job-tracker>${jobTracker}</job-tracker>-->
+            <!--<name-node>${nameNode}</name-node>-->
+            <!--<main-class>com.qianfeng.analystic.mr.au.ActiveUserRunner</main-class>-->
+            <!--<arg>-d</arg>-->
+            <!--<arg>${run_date}</arg>-->
+        <!--</java>-->
+        <!--<ok to="nm_mr"/>-->
+        <!--<error to="fail"/>-->
+    <!--</action>-->
+
+
+    <!--<action name="nm_mr">-->
+        <!--<java>-->
+            <!--<job-tracker>${jobTracker}</job-tracker>-->
+            <!--<name-node>${nameNode}</name-node>-->
+            <!--<main-class>com.bigdata.analysis.mr.nm.NewMemberRunner</main-class>-->
+            <!--<arg>-d</arg>-->
+            <!--<arg>${run_date}</arg>-->
+        <!--</java>-->
+        <!--<ok to="am_mr"/>-->
+        <!--<error to="fail"/>-->
+    <!--</action>-->
+
+
+    <!--<action name="am_mr">-->
+        <!--<java>-->
+            <!--<job-tracker>${jobTracker}</job-tracker>-->
+            <!--<name-node>${nameNode}</name-node>-->
+            <!--<main-class>com.bigdata.analysis.mr.am.ActiveMemberRunner</main-class>-->
+            <!--<arg>-d</arg>-->
+            <!--<arg>${run_date}</arg>-->
+        <!--</java>-->
+        <!--<ok to="pv_mr"/>-->
+        <!--<error to="fail"/>-->
+    <!--</action>-->
+
+
+    <!--<action name="pv_mr">-->
+        <!--<java>-->
+            <!--<job-tracker>${jobTracker}</job-tracker>-->
+            <!--<name-node>${nameNode}</name-node>-->
+            <!--<main-class>com.bigdata.analysis.mr.pv.PageviewRunner</main-class>-->
+            <!--<arg>-d</arg>-->
+            <!--<arg>${run_date}</arg>-->
+        <!--</java>-->
+        <!--<ok to="session_mr"/>-->
+        <!--<error to="fail"/>-->
+    <!--</action>-->
+
+
+    <!--<action name="session_mr">-->
+        <!--<java>-->
+            <!--<job-tracker>${jobTracker}</job-tracker>-->
+            <!--<name-node>${nameNode}</name-node>-->
+            <!--<main-class>com.bigdata.analysis.mr.session.SessionRunner</main-class>-->
+            <!--<arg>-d</arg>-->
+            <!--<arg>${run_date}</arg>-->
+        <!--</java>-->
+        <!--<ok to="end"/>-->
+        <!--<error to="fail"/>-->
+    <!--</action>-->
+
+    <kill name="fail">
+        <message>Java failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>
